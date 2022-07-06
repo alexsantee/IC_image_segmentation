@@ -74,14 +74,32 @@ ref_metal = ref_img[:, :, 0] > 0
 plt.imshow(ref_metal, cmap="gray")
 plt.show()
 
-tp = np.sum(img_closing & ref_metal) / (X * Y)
-tn = np.sum(np.logical_not(img_closing) & np.logical_not(ref_metal)) / (X * Y)
-fp = np.sum(img_closing & np.logical_not(ref_metal)) / (X * Y)
-fn = np.sum(np.logical_not(img_closing) & ref_metal) / (X * Y)
+# verifies results with reference for true and false positives and negatives
+tp = img_closing & ref_metal
+tn = np.logical_not(img_closing) & np.logical_not(ref_metal)
+fp = img_closing & np.logical_not(ref_metal)
+fn = np.logical_not(img_closing) & ref_metal
 
-print("True positive:", tp)
-print("True negative:", tn)
-print("Correct ratio:", tp + tn)
-print("False positive:", fp)
-print("False negative:", fn)
-print("Incorrect ratio:", fp + fn)
+r_tp = np.sum(tp) / (X * Y)
+r_tn = np.sum(tn) / (X * Y)
+r_fp = np.sum(fp) / (X * Y)
+r_fn = np.sum(fn) / (X * Y)
+
+print(f"True positive:   {100*(r_tp):.2f} %")
+print(f"True negative:   {100*(r_tn):.2f} %")
+print(f"Correct ratio:   {100*(r_tp+r_tn):.2f} %")
+print(f"False positive:  {100*(r_fp):.2f} %")
+print(f"False negative:  {100*(r_fn):.2f} %")
+print(f"Incorrect ratio: {100*(r_fp+r_fn):.2f} %")
+
+fig, axs = plt.subplots(2, 2)
+plt.set_cmap("gray")
+axs[0][0].set_title("true positives")
+axs[0][0].imshow(tp)
+axs[0][1].set_title("true negatives")
+axs[0][1].imshow(tn)
+axs[1][0].set_title("false positive")
+axs[1][0].imshow(fp)
+axs[1][1].set_title("false negatives")
+axs[1][1].imshow(fn)
+plt.show()

@@ -5,12 +5,14 @@ import imageio.v2 as imageio
 from skimage import morphology
 from scipy import ndimage
 
+from k_mean import *
+
 filename = "54HC32_RCA_8825_die_120nmpp.jpg"
-DOWNSAMPLING = 4
+DOWNSAMPLING = 10
 MEDIAN_RADIUS = 12//DOWNSAMPLING
 VALUE_THRESHOLD = 220
 SAT_THRESHOLD = 0.05
-CLOSING_SIZE = 5/DOWNSAMPLING
+CLOSING_SIZE = 1#5/DOWNSAMPLING
 
 img = imageio.imread(filename)
 img = img[::DOWNSAMPLING,::DOWNSAMPLING,:]
@@ -102,4 +104,16 @@ axs[1][0].set_title("false positive")
 axs[1][0].imshow(fp)
 axs[1][1].set_title("false negatives")
 axs[1][1].imshow(fn)
+plt.show()
+
+# k_mean clustering test
+N_CLUSTERS = 5
+attr = img_to_atributes(img)
+print("k-mean start")
+pixels, centroids = k_means(N_CLUSTERS, attr, 2, 1337)
+print("k-mean end")
+clustered_img = paint_clusters(pixels, centroids)
+print("centroids:")
+print(centroids)
+plt.imshow(clustered_img)
 plt.show()

@@ -5,13 +5,15 @@ import imageio.v2 as imageio
 from skimage import morphology
 from scipy import ndimage
 
-filename = "54HC32_RCA_8825_die_120nmpp_4xsmaller.jpg"
+filename = "54HC32_RCA_8825_die_120nmpp.jpg"
+DOWNSAMPLING = 4
 MEDIAN_RADIUS = 12
 VALUE_THRESHOLD = 220
 SAT_THRESHOLD = 0.05
-CLOSING_SIZE = 5
+CLOSING_SIZE = 5/DOWNSAMPLING
 
 img = imageio.imread(filename)
+img = img[::DOWNSAMPLING,::DOWNSAMPLING,:]
 X, Y, _ = img.shape
 # img = img[:X//2,:Y//2] # for testing uses one quarter of the image for more performance
 img_hsv = mpl.colors.rgb_to_hsv(img)
@@ -64,8 +66,9 @@ plt.title("After closing")
 plt.show()
 
 # comparison of closing with manual translation
-ref_filename = "manual_segmentation/54HC32_metal_4xsmaller.gif"
+ref_filename = "manual_segmentation/54HC32_metal.gif"
 ref_img = imageio.imread(ref_filename)
+ref_img = ref_img[::DOWNSAMPLING,::DOWNSAMPLING,:]
 ref_metal = ref_img[:, :, 0] > 0
 
 plt.imshow(ref_metal, cmap="gray")

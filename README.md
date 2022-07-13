@@ -23,7 +23,7 @@ However this method had some visible defects because of the black circles which 
 
 ![median_filter](/images/median_val.png)
 ![combination](/images/combination.png)
-![after_closing](/images/combination.png)
+![after_closing](/images/metal_closing.png)
 
 To more precisely evaluate these results we used a manual segmentation of the image and look at where it was right and what it missed.
 

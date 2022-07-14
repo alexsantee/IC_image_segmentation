@@ -40,3 +40,25 @@ Incorrect ratio: 23.81 %
 ```
 
 With this comparison it is possible to see the results were good for the bigger chunks of metal, but it failed to recognize the metal under the wire bondings (which were black) and some smaller layers. Fortunately it has very low false-positives, which could make an electrical connection that shouldn't exist be present.
+
+## K-mean metal extraction
+
+The results using threshold were slow because of the median filter and did not had a very good correct ratio. So we tried a k-means algorithm to see how it would recognize the metal layer, the result were still full of holes so we used a closing operation too. The segmentation was much better.
+
+![kmean_metal](/images/6_cluster_metal.png)
+![kmean_metal_eval](/images/6_cluster_metal_evaluation.png)
+
+```
+True positive:   27.21 %
+True negative:   55.58 %
+Correct ratio:   82.79 %
+False positive:  0.16 %
+False negative:  17.05 %
+Incorrect ratio: 17.21 %
+```
+
+There was no manual segmentation of other images, but the metal layer extraction looked ok.
+
+![5400_metal](/images/5400_kmean_metal.png)
+![7400_metal](/images/7400_kmean_metal.png)
+

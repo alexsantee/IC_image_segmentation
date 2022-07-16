@@ -12,6 +12,12 @@ The images are from project5474.org, which contains a large number of high resol
 
 For the layer identification, the methods applied are a median filter, in attempt to remove dust present in the images, followed by a threshold, intending to separate and have an initial identification of the layers. In the next step a morphological closing is applied to improve the segmented sections obtained before and allow for a better shape-based layer identification. This has already been applied for the metal layer.
 
+## Usage
+
+Currently the code is divided in two scripts, `metal.py` and ` via.py`, which extracts the desired layer to a folder with it's name. At the beginning of the scripts there are some settings like image filename, number of clusters for k-means and how much to downsample large images. The identification of which k-mean cluster is the desired layer is still manual.
+
+To execute the algorithm first adjust the settings at `metal.py` and execute it, then identify which picture is the metal layer at the `/metal/` folder. The number of the cluster should be used for the settings of `via.py`, which writes it's result at the `/via/` folder.
+
 ## First attempts for metal extraction
 
 At first we have tried to extract the metal layer, since it is clearly visible as a bright white through all the image. To extract this bright white we initially used the threshold method in the HSV space, in which white has a low saturation and a high value.

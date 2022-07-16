@@ -12,7 +12,7 @@ The images are from project5474.org, which contains a large number of high resol
 
 For the layer identification, the methods applied are a median filter, in attempt to remove dust present in the images, followed by a threshold, intending to separate and have an initial identification of the layers. In the next step a morphological closing is applied to improve the segmented sections obtained before and allow for a better shape-based layer identification. This has already been applied for the metal layer.
 
-## First attempts
+## First attempts for metal extraction
 
 At first we have tried to extract the metal layer, since it is clearly visible as a bright white through all the image. To extract this bright white we initially used the threshold method in the HSV space, in which white has a low saturation and a high value.
 
@@ -61,4 +61,14 @@ There was no manual segmentation of other images, but the metal layer extraction
 
 ![5400_metal](/images/5400_kmean_metal.png)
 ![7400_metal](/images/7400_kmean_metal.png)
+
+## Flood fill via Extraction
+
+Vias appear as dark rings close inside the metal layer and, since we already got the metal layer, we can use it as a mask to extract the vias. The masked image is then segmented with a k-mean algorithm which can identify the dark regions at the metal layer.
+
+A first try to get the vias is to flood-fill the outside of the image because then only the encircled regions, characteristic of vias, will not get flooded. This set of pixels is then complimented so that vias are 1 and dilated to compensate for border loss during flood fill.
+
+The result is shown in the image below. It is not perfect, but the most visible vias seem to be properly extracted.
+
+![via_floodfill](/images/via_floodfill.png)
 

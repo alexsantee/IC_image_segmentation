@@ -5,7 +5,7 @@ import imageio.v2 as imageio
 from skimage import morphology
 from scipy import ndimage
 
-from k_mean import *
+from k_means import *
 
 filename = "54HC32_RCA_8825_die_120nmpp.jpg"
 DOWNSAMPLING = 10

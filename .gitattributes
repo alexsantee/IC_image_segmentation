@@ -1,2 +1,9 @@
 .jpg filter=lfs diff=lfs merge=lfs -text
 outputs filter=lfs diff=lfs merge=lfs -text
+metal/ filter=lfs diff=lfs merge=lfs -text
+via/ filter=lfs diff=lfs merge=lfs -text
+54HC00_NS_8632_die_120nmpp.jpg filter=lfs diff=lfs merge=lfs -text
+74HC02_Motorola_8302.jpg filter=lfs diff=lfs merge=lfs -text
+74HCT00_RCA_419_die_120nmpp.jpg filter=lfs diff=lfs merge=lfs -text
+metal_jupyter/ filter=lfs diff=lfs merge=lfs -text
+via_jupyter/ filter=lfs diff=lfs merge=lfs -text
